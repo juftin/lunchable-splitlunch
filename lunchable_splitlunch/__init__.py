@@ -1,0 +1,3 @@
+"""
+Splitwise Plugin for Lunchmoney
+"""
