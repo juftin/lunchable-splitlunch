@@ -21,9 +21,10 @@ from lunchable.models import (
     TransactionSplitObject,
     TransactionUpdateObject,
 )
-from lunchable.plugins.splitlunch._config import SplitLunchConfig
-from lunchable.plugins.splitlunch.exceptions import SplitLunchError
-from lunchable.plugins.splitlunch.models import SplitLunchExpense
+
+from lunchable_splitlunch._config import SplitLunchConfig
+from lunchable_splitlunch.exceptions import SplitLunchError
+from lunchable_splitlunch.models import SplitLunchExpense
 
 logger = logging.getLogger(__name__)
 

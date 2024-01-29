@@ -5,7 +5,7 @@ SplitLunch Data Models
 import datetime
 from typing import List, Optional
 
-from lunchable.models._base import LunchableModel
+from lunchable.models import LunchableModel
 
 
 class SplitLunchExpense(LunchableModel):

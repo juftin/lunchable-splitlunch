@@ -39,7 +39,7 @@ idna==3.6
     #   requests
 importlib-metadata==7.0.1
     # via lunchable
-lunchable==1.2.1
+lunchable==1.2.2
     # via hatch.envs.default
 markdown-it-py==3.0.0
     # via rich
@@ -47,9 +47,9 @@ mdurl==0.1.2
     # via markdown-it-py
 oauthlib==3.2.2
     # via requests-oauthlib
-pydantic==2.5.3
+pydantic==2.6.0
     # via lunchable
-pydantic-core==2.14.6
+pydantic-core==2.16.1
     # via pydantic
 pygments==2.17.2
     # via rich
