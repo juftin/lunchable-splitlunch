@@ -1199,8 +1199,8 @@ class SplitLunch(splitwise.Splitwise):
         """
         updated_transactions = []
         for transaction in deleted_transactions:
-            notes = " || ".join(
-                [transaction.payee, transaction.amount, transaction.notes]
+            notes = (
+                f"{transaction.payee} || {transaction.amount} || {transaction.notes}"
             )
             update = self.lunchable.update_transaction(
                 transaction_id=transaction.id,
