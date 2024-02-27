@@ -952,7 +952,7 @@ class SplitLunch(splitwise.Splitwise):
         for splitwise_transaction in filtered_expenses:
             new_date = splitwise_transaction.date.astimezone(tzlocal())
             if isinstance(new_date, datetime.datetime):
-                new_date = new_date.date()
+                new_date = new_date.date()  # type: ignore
             new_lunchmoney_transaction = TransactionInsertObject(
                 date=new_date,
                 payee=splitwise_transaction.description,
