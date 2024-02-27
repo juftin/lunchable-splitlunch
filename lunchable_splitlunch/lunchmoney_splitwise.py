@@ -950,12 +950,15 @@ class SplitLunch(splitwise.Splitwise):
             allow_payments=allow_payments,
         )
         for splitwise_transaction in filtered_expenses:
+            new_date = splitwise_transaction.date.astimezone(tzlocal())
+            if isinstance(new_date, datetime.datetime):
+                new_date = new_date.date()
             new_lunchmoney_transaction = TransactionInsertObject(
-                date=splitwise_transaction.date.astimezone(tzlocal()),
+                date=new_date,
                 payee=splitwise_transaction.description,
                 amount=splitwise_transaction.financial_impact,
                 asset_id=self.splitwise_asset.id,
-                external_id=splitwise_transaction.splitwise_id,
+                external_id=str(splitwise_transaction.splitwise_id),
             )
             batch.append(new_lunchmoney_transaction)
             batch_size = 10
