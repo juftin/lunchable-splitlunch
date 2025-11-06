@@ -17,6 +17,7 @@ class SplitLunchExpense(LunchableModel):
     original_amount: float
     self_paid: bool
     financial_impact: float
+    currency_code: str
     description: str
     category: str
     details: Optional[str] = None

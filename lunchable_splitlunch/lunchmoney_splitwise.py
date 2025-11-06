@@ -203,7 +203,7 @@ class SplitLunch(splitwise.Splitwise):
         return amounts_due
 
     def create_self_paid_expense(
-        self, amount: float, description: str, date: datetime.date
+        self, amount: float, currency_code: str, description: str, date: datetime.date
     ) -> SplitLunchExpense:
         """
         Create and Submit a Splitwise Expense
@@ -230,6 +230,7 @@ class SplitLunch(splitwise.Splitwise):
             amount=amount
         )
         new_expense.setCost(cost=amount)
+        new_expense.setCurrencyCode(currency_code=currency_code)
         # CONFIGURE PRIMARY USER
         primary_user = splitwise.user.ExpenseUser()
         primary_user.setId(id=self.current_user.id)
@@ -255,7 +256,7 @@ class SplitLunch(splitwise.Splitwise):
         return pydantic_response
 
     def create_expense_on_behalf_of_partner(
-        self, amount: float, description: str, date: datetime.date
+        self, amount: float, currency_code: str, description: str, date: datetime.date
     ) -> SplitLunchExpense:
         """
         Create and Submit a Splitwise Expense on behalf of your financial partner.
@@ -281,6 +282,7 @@ class SplitLunch(splitwise.Splitwise):
             new_expense.setGroupId(self.financial_group)
         # GET AND SET AMOUNTS OWED
         new_expense.setCost(cost=amount)
+        new_expense.setCurrencyCode(currency_code=currency_code)
         # CONFIGURE PRIMARY USER
         primary_user = splitwise.user.ExpenseUser()
         primary_user.setId(id=self.current_user.id)
@@ -450,6 +452,7 @@ class SplitLunch(splitwise.Splitwise):
             splitwise_id=expense.id,
             original_amount=expense.cost,
             financial_impact=financial_impact,
+            currency_code=expense.currency_code,
             self_paid=self_paid,
             description=expense.description,
             category=expense.category.name,
@@ -795,6 +798,7 @@ class SplitLunch(splitwise.Splitwise):
                 description = f"{transaction.payee} - {transaction.notes}"
             new_transaction = self.create_self_paid_expense(
                 amount=transaction.amount,
+                currency_code=transaction.currency.upper(),
                 description=description,
                 date=transaction.date,
             )
@@ -881,6 +885,7 @@ class SplitLunch(splitwise.Splitwise):
                 description = f"{transaction.payee} - {transaction.notes}"
             new_transaction = self.create_expense_on_behalf_of_partner(
                 amount=transaction.amount,
+                currency_code=transaction.currency.upper(),
                 description=description,
                 date=transaction.date,
             )
@@ -959,6 +964,7 @@ class SplitLunch(splitwise.Splitwise):
                 date=new_date,
                 payee=splitwise_transaction.description,
                 amount=splitwise_transaction.financial_impact,
+                currency=splitwise_transaction.currency_code.lower(),
                 asset_id=self.splitwise_asset.id,
                 external_id=str(splitwise_transaction.splitwise_id),
             )
